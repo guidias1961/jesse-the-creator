@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<!--
+Place logo.png beside this file.
+File name suggestion: index.html
+Project: Jesse, the Creator ($001) — surreal cartoon + Flower Boy vibe + Basechain blue
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jesse, the Creator • Builder 001 on Base</title>
+  <meta name="theme-color" content="#4f8dff" />
+  <meta name="description" content="Jesse, the Creator ($001). When infrastructure meets imagination. Builder 001 energy on Basechain." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #eaf2ff;
+      --ink: #0b1220;
+      --muted: #6e7690;
+      --panel: #ffffff;
+      --line: rgba(11,18,32,.14);
+      --baseBlue:#87b3ff;       /* Base light */
+      --baseBlueStrong:#4f8dff; /* Base mid */
+      --pink:#ff9bd3;
+      --yellow:#ffe676;
+      --mint:#b6ffd9;
+      --violet:#bfa8ff;
+      --shadow: rgba(7,13,26,.20);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Rubik, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 1200px at 80% -10%, #cfe4ff 0%, transparent 40%),
+        radial-gradient(1000px 800px at -10% 20%, #d9ecff 0%, transparent 45%),
+        linear-gradient(180deg, var(--bg), #d8e8ff);
+      overflow-x:hidden;
+    }
+
+    /* Floating candy shapes background */
+    .shape{
+      position: fixed;
+      z-index: 0;
+      opacity:.9;
+      filter: drop-shadow(0 8px 12px var(--shadow));
+      animation: float 18s linear infinite;
+      will-change: transform;
+    }
+    .shape.star{ --c: #fff1a6; clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); background:var(--yellow);}
+    .shape.tri{ --c: #b7ffeb; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); background:var(--mint);}
+    .shape.cloud{ --c: #ffffff; background:var(--panel); border-radius:999px; width:220px; height:90px;}
+    .shape.cloud:before,.shape.cloud:after{content:""; position:absolute; background:var(--panel); border-radius:999px}
+    .shape.cloud:before{width:120px;height:120px;left:20px;top:-40px}
+    .shape.cloud:after{width:140px;height:140px;left:90px;top:-60px}
+    .shape.bubble{ background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0) 60%), var(--violet); border-radius:50%;}
+    @keyframes float{
+      0%{ transform: translateY(0) translateX(0) rotate(0deg) }
+      50%{ transform: translateY(-30px) translateX(10px) rotate(3deg) }
+      100%{ transform: translateY(0) translateX(0) rotate(0deg) }
+    }
+
+    /* Layout */
+    .wrap{ position:relative; z-index:1; }
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:20px clamp(16px, 4vw, 40px);
+    }
+    .brand{display:flex; gap:14px; align-items:center}
+    .brand img{width:52px;height:52px; border-radius:14px; box-shadow:0 8px 16px var(--shadow); object-fit:cover}
+    .brand h1{font-size:clamp(18px, 3vw, 28px); margin:0; font-weight:800; letter-spacing:.4px}
+    .brand small{display:block; color:var(--muted); font-weight:600; font-size:.8rem}
+    .cta{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .btn{
+      --btnbg: linear-gradient(90deg, var(--baseBlueStrong), #8ec8ff 70%, var(--baseBlue));
+      border:none; color:#071226; font-weight:800; letter-spacing:.4px;
+      padding:12px 18px; border-radius:14px; cursor:pointer;
+      box-shadow: 0 10px 20px rgba(79,141,255,.35), inset 0 0 0 2px rgba(255,255,255,.5);
+      background: var(--btnbg);
+    }
+    .btn.secondary{ background:#fff; box-shadow:0 8px 16px var(--shadow), inset 0 0 0 2px #e7efff }
+    .btn:active{ transform: translateY(1px) }
+
+    /* Hero */
+    .hero{
+      padding: clamp(20px, 4vw, 40px);
+      display:grid; grid-template-columns: 1.1fr 1fr; gap:clamp(18px, 3.8vw, 40px);
+      align-items:center;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, #fff, #f8fbff);
+      border:1px solid #e6eeff; box-shadow:0 24px 60px rgba(8,20,48,.18);
+      border-radius:28px; padding: clamp(20px, 5vw, 44px);
+      position:relative; overflow:hidden;
+    }
+    .hero h2{
+      font-size:clamp(28px, 6vw, 64px);
+      line-height:.95; margin:0 0 10px 0; font-weight:900;
+      background: linear-gradient(180deg, #071226, #28406f);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .hero p{ color:#3b4a6b; font-size:clamp(14px,2.2vw,18px); margin:0 0 18px 0 }
+    .hero .kicker{ display:inline-block; font-weight:800; color:#18315f; background:#e7f1ff; padding:8px 12px; border-radius:999px; margin-bottom:12px; border:1px solid #d4e6ff }
+    .hero-art{
+      aspect-ratio:1/1; border-radius:28px; overflow:hidden;
+      border:1px solid #e6eeff; background:#fbfdff; position:relative;
+      box-shadow:0 24px 60px rgba(8,20,48,.16);
+    }
+    .hero-art .sticker{
+      position:absolute; inset:0; display:grid; place-items:center; padding:22px;
+    }
+    .hero-art img{ width:100%; height:100%; object-fit:cover; border-radius:22px; image-rendering:-webkit-optimize-contrast }
+    .chips{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px }
+    .chip{
+      padding:8px 12px; border-radius:999px; font-weight:700; font-size:.85rem;
+      background:#fff; border:1px dashed #bcd3ff; color:#26457a;
+    }
+
+    /* Sections */
+    section{ padding: clamp(28px,5vw,64px); }
+    .panel{
+      background: linear-gradient(180deg, #ffffff, #f7fbff);
+      border:1px solid #e6eeff; border-radius:24px;
+      box-shadow: 0 18px 44px rgba(8,20,48,.12);
+      padding: clamp(18px,3.5vw,32px);
+    }
+
+    /* Manifesto */
+    .manifesto h3{ margin:0 0 10px 0; font-size:clamp(22px,4vw,32px) }
+    .manifesto pre{
+      background:#0b1220; color:#e7f1ff; padding:16px 18px; border-radius:14px;
+      border:1px solid #1a2540; box-shadow: inset 0 0 0 2px #0f1a33;
+      overflow:auto; font-family: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size:.95rem;
+    }
+
+    /* Tracklist */
+    .tracks{
+      display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px;
+      margin-top:14px;
+    }
+    .track{
+      background: conic-gradient(from 210deg at 20% 20%, #fff 0 25%, #f7fbff 0 50%, #ffffff 0 75%, #f7fbff 0 100%);
+      border:1px solid #e6eeff; border-radius:18px; padding:16px;
+      position:relative; overflow:hidden;
+    }
+    .track .num{ font-family:"Space Mono", monospace; font-weight:700; color:#153a83; }
+    .track h4{ margin:6px 0 4px 0; font-size:1.05rem }
+    .track p{ margin:0; color:#51628a; font-size:.92rem }
+
+    /* Meme wall */
+    .meme-wall{ display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:14px }
+    .meme{
+      background: #fff; border:1px dashed #c9dcff; border-radius:16px; padding:14px;
+      box-shadow: 0 10px 24px rgba(8,20,48,.08);
+      position:relative; overflow:hidden;
+    }
+    .meme:before{
+      content:""; position:absolute; inset:-30% -10% auto auto; width:160px; height:160px; border-radius:50%;
+      background: radial-gradient(circle at 40% 40%, rgba(255,255,255,.9), rgba(135,179,255,.25));
+      filter: blur(4px);
+    }
+    .meme .tag{ font-weight:800; color:#18315f; font-size:.8rem; background:#e7f1ff; border:1px solid #d4e6ff; padding:6px 10px; border-radius:999px; display:inline-block; margin-bottom:8px }
+    .meme p{ margin:0; color:#2a3d6b; font-weight:700 }
+
+    /* Creator Lab */
+    .lab{ display:grid; grid-template-columns: 1.2fr 1fr; gap:18px; align-items:center }
+    .canvas-wrap{
+      background: repeating-linear-gradient(45deg, #fff, #fff 8px, #f7fbff 8px, #f7fbff 16px);
+      border:1px solid #e6eeff; border-radius:18px; padding:10px; box-shadow:0 16px 36px rgba(8,20,48,.12);
+    }
+    canvas{ width:100%; height:auto; display:block; border-radius:12px }
+    .lab-controls .tip{ color:#51628a; font-size:.95rem; margin-top:10px }
+    .keys{ font-family:"Space Mono", monospace; background:#0b1220; color:#e7f1ff; padding:10px 12px; border-radius:10px; display:inline-block; margin-top:8px; border:1px solid #1a2540 }
+
+    /* Footer */
+    footer{ text-align:center; color:#4a5f8f; padding:34px 16px 60px }
+    footer .sig{ font-weight:800; color:#18315f }
+
+    /* Creator mode toggle */
+    body.creator-mode{
+      background:
+        radial-gradient(1200px 1200px at 30% 10%, #ffd9fb 0%, transparent 45%),
+        radial-gradient(1000px 800px at 110% 40%, #fff2b2 0%, transparent 45%),
+        linear-gradient(180deg, #fdf4ff, #fff8d2 40%, #ffe6ff);
+    }
+    body.creator-mode .btn{ --btnbg: linear-gradient(90deg, #fcb6ff, #ffe676 70%, #ffd3ff) }
+    body.creator-mode .hero-card{ background: linear-gradient(180deg, #fff7ff, #fff7e8) }
+    body.creator-mode .panel{ background: linear-gradient(180deg, #fff7ff, #fff7e8) }
+    .secret{
+      display:none; text-align:center; font-weight:900; letter-spacing:.6px;
+      margin-top:10px; color:#0b1220;
+    }
+    body.creator-mode .secret{ display:block }
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .lab{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating background shapes -->
+  <div class="shape cloud" style="top:6%; left:-40px; transform:scale(.9); animation-duration:26s"></div>
+  <div class="shape cloud" style="top:16%; right:-60px; transform:scale(1.1); animation-duration:22s"></div>
+  <div class="shape star"  style="top:34%; left:8%; width:90px; height:90px; background:var(--yellow); animation-duration:18s"></div>
+  <div class="shape tri"   style="top:62%; left:3%; width:120px; height:100px; background:var(--mint); animation-duration:16s"></div>
+  <div class="shape bubble" style="top:74%; right:6%; width:120px; height:120px; animation-duration:20s"></div>
+  <div class="shape bubble" style="top:42%; right:18%; width:80px; height:80px; background:var(--pink); animation-duration:17s"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <img src="logo.png" alt="Jesse the Creator logo">
+        <div>
+          <h1>Jesse, the Creator</h1>
+          <small>Builder 001 on Basechain • Ticker 001</small>
+        </div>
+      </div>
+      <div class="cta">
+        <a class="btn" href="https://dexscreener.com/base" target="_blank" rel="noopener">Enter Base Mode</a>
+        <button id="toggleCreator" class="btn secondary" title="Press 0 0 1 to toggle">Creator Mode</button>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-card">
+        <span class="kicker">When infrastructure meets imagination</span>
+        <h2>Jesse, the Creator</h2>
+        <p>Art plus code equals culture. The first builder who decided to drop taste instead of commits. Welcome to Base where flowers float, triangles bounce, and blue is a feeling.</p>
+        <div class="chips">
+          <span class="chip">Network: Basechain</span>
+          <span class="chip">Ticker: 001</span>
+          <span class="chip">Supply: 100,000,001</span>
+          <span class="chip">Vibe: Flower Boy Energy</span>
+        </div>
+        <div class="secret">You can't fork culture.</div>
+      </div>
+      <div class="hero-art">
+        <div class="sticker">
+          <img src="logo.png" alt="Surreal cartoon character">
+        </div>
+      </div>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="manifesto">
+      <div class="panel">
+        <h3>The Manifesto</h3>
+        <p>We are not here to launch another forgettable token. We are here to make Base look beautiful while keeping it technically tight. Builder 001 is not only a title. It is a standard for taste.</p>
+        <pre id="term" aria-live="polite"><span>> deploy culture</span></pre>
+      </div>
+    </section>
+
+    <!-- The Drop - Tracklist -->
+    <section>
+      <div class="panel">
+        <h3>The Drop</h3>
+        <div class="tracks">
+          <div class="track">
+            <div class="num">001</div>
+            <h4>The Blueprint</h4>
+            <p>Total supply 100,000,001. No nonsense. No maze.</p>
+          </div>
+          <div class="track">
+            <div class="num">002</div>
+            <h4>Base Mode</h4>
+            <p>Basechain native. Because the builder is 001.</p>
+          </div>
+          <div class="track">
+            <div class="num">003</div>
+            <h4>Flower Power</h4>
+            <p>Liquidity blooms. Community waters. Vibes grow.</p>
+          </div>
+          <div class="track">
+            <div class="num">004</div>
+            <h4>Creator Energy</h4>
+            <p>Less roadmap. More taste. Product is the culture.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meme Wall -->
+    <section>
+      <div class="panel">
+        <h3>Meme Wall</h3>
+        <div id="memeWall" class="meme-wall" role="list"></div>
+      </div>
+    </section>
+
+    <!-- Creator Lab -->
+    <section>
+      <div class="panel lab">
+        <div class="canvas-wrap">
+          <canvas id="labCanvas" width="1200" height="700" aria-label="Creator canvas"></canvas>
+        </div>
+        <div class="lab-controls">
+          <h3>The Creator Lab</h3>
+          <p>Press the button to generate a fresh Jesse style card. It draws with pastel clouds, flowers, stars, and Base blue gradients.</p>
+          <div class="cta" style="margin-top:8px">
+            <button id="gen" class="btn">Generate Jesse</button>
+            <button id="save" class="btn secondary">Save Image</button>
+          </div>
+          <p class="tip">Keyboard secrets: press <span class="keys">0 0 1</span> to toggle Creator Mode. Press <span class="keys">T</span> to tap a kick. Press <span class="keys">B</span> to tint the site Base blue.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="sig">Built on Base. Styled by Jesse.</div>
+      <div>Replace the Dex link in the header when the pair is live.</div>
+    </footer>
+  </div>
+
+  <script>
+    /* Typewriter in Manifesto terminal */
+    const lines = [
+      "> deploy culture",
+      "> execute imagination()",
+      "> mint vibe(001)",
+      "> echo \"Base looks better now\""
+    ];
+    const term = document.getElementById("term");
+    let idx = 0;
+    function typeNext(){
+      if(idx >= lines.length){ idx = 0; term.innerText = ""; }
+      const line = document.createElement("div");
+      line.textContent = lines[idx++];
+      term.appendChild(line);
+    }
+    typeNext();
+    setInterval(typeNext, 1400);
+
+    /* Meme Wall generator */
+    const memes = [
+      "Some build apps. Some build art.",
+      "Builder 001 with Flower Boy energy.",
+      "You can not fork culture.",
+      "Deploying good taste on Base.",
+      "Art plus code equals culture.",
+      "This is not DeFi. This is Design.",
+      "Push commits, keep the drip.",
+      "Base is a canvas.",
+      "Holders are co creators.",
+      "It is not a launch. It is a vibe drop."
+    ];
+    const tags = ["gm", "based", "builder", "creator", "001", "vibes", "flower", "cloud", "star", "blue"];
+    const wall = document.getElementById("memeWall");
+    function addMeme(){
+      const card = document.createElement("div");
+      card.className = "meme";
+      const tag = document.createElement("div");
+      tag.className = "tag";
+      tag.textContent = "#" + tags[Math.floor(Math.random()*tags.length)];
+      const p = document.createElement("p");
+      p.textContent = memes[Math.floor(Math.random()*memes.length)];
+      card.appendChild(tag);
+      card.appendChild(p);
+      wall.prepend(card);
+      const max = 12;
+      while(wall.children.length > max){ wall.removeChild(wall.lastChild); }
+    }
+    for(let i=0;i<9;i++) addMeme();
+    setInterval(addMeme, 1800);
+
+    /* Creator Lab canvas drawing */
+    const c = document.getElementById("labCanvas");
+    const ctx = c.getContext("2d");
+
+    function rand(min, max){ return Math.random()*(max-min)+min; }
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    const paletteBase = ["#87b3ff","#4f8dff","#b6ffd9","#ffe676","#ff9bd3","#bfa8ff","#ffffff","#eaf2ff"];
+    function drawScene(){
+      // background gradient
+      const g = ctx.createLinearGradient(0,0, c.width, c.height);
+      g.addColorStop(0, "#f6fbff");
+      g.addColorStop(1, "#e9f2ff");
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,c.width,c.height);
+
+      // rolling hills
+      for(let i=0;i<5;i++){
+        const y = c.height*0.55 + i*40;
+        ctx.fillStyle = i%2 ? "#fcf6ff" : "#f4fbff";
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        for(let x=0;x<=c.width; x+=40){
+          ctx.quadraticCurveTo(x+20, y+rand(-30,30), x+40, y);
+        }
+        ctx.lineTo(c.width, c.height);
+        ctx.lineTo(0, c.height);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      // clouds
+      for(let i=0;i<6;i++){
+        const x = rand(40, c.width-140);
+        const y = rand(30, 200);
+        drawCloud(x,y, rand(90,160));
+      }
+
+      // stars and triangles
+      for(let i=0;i<10;i++){
+        ctx.save();
+        ctx.translate(rand(40,c.width-40), rand(120, 480));
+        ctx.rotate(rand(0,Math.PI*2));
+        ctx.fillStyle = pick(paletteBase);
+        if(Math.random()<0.5) drawStar(rand(10,18)); else drawTri(rand(18,28));
+        ctx.restore();
+      }
+
+      // flowers
+      for(let i=0;i<8;i++){
+        drawFlower(rand(40,c.width-40), rand(c.height*0.55, c.height-80), pick(["#ff9bd3","#bfa8ff","#ffe676","#b6ffd9"]));
+      }
+
+      // frame title
+      ctx.fillStyle = "#0b1220";
+      ctx.font = "900 54px Rubik, Arial";
+      ctx.fillText("Jesse, the Creator", 48, 96);
+      ctx.font = "700 24px Rubik, Arial";
+      ctx.fillStyle = "#2a3d6b";
+      ctx.fillText("Builder 001 on Basechain • Ticker 001", 48, 130);
+
+      // badge
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = "#cfe0ff";
+      roundRect(ctx, c.width-260, 36, 200, 54, 14, true, true);
+      ctx.fillStyle = "#18315f";
+      ctx.font = "800 18px Rubik, Arial";
+      ctx.fillText("Art + Code = Culture", c.width-244, 69);
+    }
+
+    function drawCloud(x,y,w){
+      const h = w*0.42;
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = "#e6eeff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(x, y+h*0.4, w*0.55, h*0.55, 0, 0, Math.PI*2);
+      ctx.ellipse(x+w*0.35, y, w*0.46, h*0.66, 0, 0, Math.PI*2);
+      ctx.ellipse(x+w*0.7, y+h*0.2, w*0.52, h*0.62, 0, 0, Math.PI*2);
+      ctx.fill(); ctx.stroke();
+    }
+    function drawStar(r){
+      ctx.beginPath();
+      for(let i=0;i<10;i++){
+        const ang = i * Math.PI/5;
+        const rad = i%2 ? r*0.5 : r;
+        ctx.lineTo(Math.cos(ang)*rad, Math.sin(ang)*rad);
+      }
+      ctx.closePath(); ctx.fill();
+    }
+    function drawTri(s){
+      ctx.beginPath();
+      ctx.moveTo(0, -s);
+      ctx.lineTo(-s, s);
+      ctx.lineTo(s, s);
+      ctx.closePath(); ctx.fill();
+    }
+    function drawFlower(x,y,color){
+      ctx.save();
+      ctx.translate(x,y);
+      ctx.strokeStyle = "#8ec8ff";
+      ctx.lineWidth = 4;
+      // stem
+      ctx.beginPath();
+      ctx.moveTo(0,0); ctx.lineTo(0,40); ctx.stroke();
+      // leaves
+      ctx.beginPath(); ctx.strokeStyle = "#9de8c9";
+      ctx.moveTo(-8,22); ctx.quadraticCurveTo(-18,18,-22,8); ctx.stroke();
+      ctx.moveTo(8,28); ctx.quadraticCurveTo(22,24,24,12); ctx.stroke();
+      // petals
+      for(let i=0;i<6;i++){
+        ctx.save();
+        ctx.rotate(i*Math.PI/3);
+        ctx.fillStyle = color;
+        ctx.beginPath(); ctx.ellipse(0,-18, 9,14,0,0,Math.PI*2); ctx.fill();
+        ctx.restore();
+      }
+      // center
+      ctx.fillStyle = "#ffe676"; ctx.beginPath(); ctx.arc(0,0,7,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+    function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+      if (typeof stroke === 'undefined') { stroke = true; }
+      if (typeof radius === 'undefined') { radius = 5; }
+      if (typeof radius === 'number') {
+        radius = {tl: radius, tr: radius, br: radius, bl: radius};
+      } else {
+        var defaultRadius = {tl: 0, tr: 0, br: 0, bl: 0};
+        for (var side in defaultRadius) { radius[side] = radius[side] || defaultRadius[side]; }
+      }
+      ctx.beginPath();
+      ctx.moveTo(x + radius.tl, y);
+      ctx.lineTo(x + width - radius.tr, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+      ctx.lineTo(x + width, y + height - radius.br);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+      ctx.lineTo(x + radius.bl, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+      ctx.lineTo(x, y + radius.tl);
+      ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+      ctx.closePath();
+      if (fill) ctx.fill();
+      if (stroke) ctx.stroke();
+    }
+
+    // initial draw
+    drawScene();
+
+    // controls
+    document.getElementById("gen").addEventListener("click", drawScene);
+    document.getElementById("save").addEventListener("click", () => {
+      const link = document.createElement("a");
+      link.download = "jesse_the_creator.png";
+      link.href = c.toDataURL("image/png");
+      link.click();
+    });
+
+    // keyboard easter eggs
+    let seq = [];
+    function toggleCreator(){ document.body.classList.toggle("creator-mode"); }
+    document.getElementById("toggleCreator").addEventListener("click", toggleCreator);
+
+    document.addEventListener("keydown", (e)=>{
+      // 0 0 1 detector
+      if(["0","1"].includes(e.key)){
+        seq.push(e.key);
+        if(seq.join("") === "001"){ toggleCreator(); seq = []; }
+        if(seq.length > 3) seq.shift();
+      } else { seq = []; }
+
+      if(e.key.toLowerCase() === "b"){
+        // quick site tint
+        document.documentElement.style.setProperty("--bg", "#eaf2ff");
+        document.documentElement.style.setProperty("--baseBlue", "#87b3ff");
+        document.documentElement.style.setProperty("--baseBlueStrong", "#4f8dff");
+        drawScene();
+      }
+      if(e.key.toLowerCase() === "t"){
+        playKick();
+      }
+    });
+
+    // tiny kick with WebAudio
+    let audioCtx;
+    function playKick(){
+      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.connect(g); g.connect(audioCtx.destination);
+      o.type = "sine"; o.frequency.setValueAtTime(150, audioCtx.currentTime);
+      g.gain.setValueAtTime(0.8, audioCtx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.18);
+      g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.18);
+      o.start(); o.stop(audioCtx.currentTime + 0.2);
+    }
+  </script>
+</body>
+</html>
+
