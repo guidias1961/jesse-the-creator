@@ -168,20 +168,6 @@
     <section>
       <div class="panel">
         <h3>The Creator Lab</h3>
-        <p>Press the button to generate a fresh Jesse style card. It draws with pastel clouds, flowers, stars, and Base blue gradients.</p>
-        <div class="lab">
-          <div class="canvas-wrap">
-            <canvas id="labCanvas" width="1200" height="700" aria-label="Creator canvas"></canvas>
-          </div>
-          <div class="lab-controls">
-            <div class="cta" style="margin-top:8px">
-              <button id="gen" class="btn">Generate Jesse</button>
-              <button id="save" class="btn secondary">Save Image</button>
-            </div>
-            <p class="tip">Keyboard secrets: press <span class="keys">0 0 1</span> to toggle Creator Mode. Press <span class="keys">T</span> to tap a kick. Press <span class="keys">B</span> to tint the site Base blue.</p>
-          </div>
-        </div>
-        
         <div class="hidden-gallery">
           <div class="hidden-img-wrap">
             <img src="1.png" alt="Jesse Art 1">
@@ -222,40 +208,10 @@
     function addMeme(){const card=document.createElement("div");card.className="meme";const tag=document.createElement("div");tag.className="tag";tag.textContent="#"+tags[Math.floor(Math.random()*tags.length)];const p=document.createElement("p");p.textContent=memes[Math.floor(Math.random()*memes.length)];card.appendChild(tag);card.appendChild(p);wall.prepend(card);const max=12;while(wall.children.length>max){wall.removeChild(wall.lastChild)}}
     for(let i=0;i<9;i++)addMeme();setInterval(addMeme,1800);
 
-    const c=document.getElementById("labCanvas");
-    const ctx=c.getContext("2d");
-    function rand(min,max){return Math.random()*(max-min)+min}
-    function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
-    const paletteBase=["#87b3ff","#4f8dff","#b6ffd9","#ffe676","#ff9bd3","#bfa8ff","#ffffff","#eaf2ff"];
-    
-    function drawScene(){
-      const g=ctx.createLinearGradient(0,0,c.width,c.height);
-      g.addColorStop(0,"#f6fbff");g.addColorStop(1,"#e9f2ff");
-      ctx.fillStyle=g;ctx.fillRect(0,0,c.width,c.height);
-      for(let i=0;i<5;i++){const y=c.height*.55+i*40;ctx.fillStyle=i%2?"#fcf6ff":"#f4fbff";ctx.beginPath();ctx.moveTo(0,y);for(let x=0;x<=c.width;x+=40){ctx.quadraticCurveTo(x+20,y+rand(-30,30),x+40,y)}ctx.lineTo(c.width,c.height);ctx.lineTo(0,c.height);ctx.closePath();ctx.fill()}
-      for(let i=0;i<6;i++){const x=rand(40,c.width-140);const y=rand(30,200);drawCloud(x,y,rand(90,160))}
-      for(let i=0;i<10;i++){ctx.save();ctx.translate(rand(40,c.width-40),rand(120,480));ctx.rotate(rand(0,Math.PI*2));ctx.fillStyle=pick(paletteBase);if(Math.random()<.5)drawStar(rand(10,18));else drawTri(rand(18,28));ctx.restore()}
-      for(let i=0;i<8;i++){drawFlower(rand(40,c.width-40),rand(c.height*.55,c.height-80),pick(["#ff9bd3","#bfa8ff","#ffe676","#b6ffd9"]))}
-      ctx.fillStyle="#0b1220";ctx.font="900 54px Rubik, Arial";ctx.fillText("Jesse, the Creator",48,96);
-      ctx.font="700 24px Rubik, Arial";ctx.fillStyle="#2a3d6b";ctx.fillText("Builder 001 on Basechain • Ticker 001",48,130);
-      ctx.fillStyle="#ffffff";ctx.strokeStyle="#cfe0ff";roundRect(ctx,c.width-260,36,200,54,14,true,true);
-      ctx.fillStyle="#18315f";ctx.font="800 18px Rubik, Arial";ctx.fillText("Art + Code = Culture",c.width-244,69)
-    }
-    
-    function drawCloud(x,y,w){const h=w*.42;ctx.fillStyle="#ffffff";ctx.strokeStyle="#e6eeff";ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(x,y+h*.4,w*.55,h*.55,0,0,Math.PI*2);ctx.ellipse(x+w*.35,y,w*.46,h*.66,0,0,Math.PI*2);ctx.ellipse(x+w*.7,y+h*.2,w*.52,h*.62,0,0,Math.PI*2);ctx.fill();ctx.stroke()}
-    function drawStar(r){ctx.beginPath();for(let i=0;i<10;i++){const ang=i*Math.PI/5;const rad=i%2?r*.5:r;ctx.lineTo(Math.cos(ang)*rad,Math.sin(ang)*rad)}ctx.closePath();ctx.fill()}
-    function drawTri(s){ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(-s,s);ctx.lineTo(s,s);ctx.closePath();ctx.fill()}
-    function drawFlower(x,y,color){ctx.save();ctx.translate(x,y);ctx.strokeStyle="#8ec8ff";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,40);ctx.stroke();ctx.beginPath();ctx.strokeStyle="#9de8c9";ctx.moveTo(-8,22);ctx.quadraticCurveTo(-18,18,-22,8);ctx.stroke();ctx.moveTo(8,28);ctx.quadraticCurveTo(22,24,24,12);ctx.stroke();for(let i=0;i<6;i++){ctx.save();ctx.rotate(i*Math.PI/3);ctx.fillStyle=color;ctx.beginPath();ctx.ellipse(0,-18,9,14,0,0,Math.PI*2);ctx.fill();ctx.restore()}ctx.fillStyle="#ffe676";ctx.beginPath();ctx.arc(0,0,7,0,Math.PI*2);ctx.fill();ctx.restore()}
-    function roundRect(ctx,x,y,width,height,radius,fill,stroke){if(typeof stroke==='undefined'){stroke=true}if(typeof radius==='undefined'){radius=5}if(typeof radius==='number'){radius={tl:radius,tr:radius,br:radius,bl:radius}}else{var defaultRadius={tl:0,tr:0,br:0,bl:0};for(var side in defaultRadius){radius[side]=radius[side]||defaultRadius[side]}}ctx.beginPath();ctx.moveTo(x+radius.tl,y);ctx.lineTo(x+width-radius.tr,y);ctx.quadraticCurveTo(x+width,y,x+width,y+radius.tr);ctx.lineTo(x+width,y+height-radius.br);ctx.quadraticCurveTo(x+width,y+height,x+width-radius.br,y+height);ctx.lineTo(x+radius.bl,y+height);ctx.quadraticCurveTo(x,y+height,x,y+height-radius.bl);ctx.lineTo(x,y+radius.tl);ctx.quadraticCurveTo(x,y,x+radius.tl,y);ctx.closePath();if(fill)ctx.fill();if(stroke)ctx.stroke()}
-
-    drawScene();
-    document.getElementById("gen").addEventListener("click",drawScene);
-    document.getElementById("save").addEventListener("click",()=>{const link=document.createElement("a");link.download="jesse_the_creator.png";link.href=c.toDataURL("image/png");link.click()});
-
     let seq=[];
     function toggleCreator(){document.body.classList.toggle("creator-mode")}
     document.getElementById("toggleCreator").addEventListener("click",toggleCreator);
-    document.addEventListener("keydown",(e)=>{if(["0","1"].includes(e.key)){seq.push(e.key);if(seq.join("")==="001"){toggleCreator();seq=[]}if(seq.length>3)seq.shift()}else{seq=[]}if(e.key.toLowerCase()==="b"){document.documentElement.style.setProperty("--bg","#eaf2ff");document.documentElement.style.setProperty("--baseBlue","#87b3ff");document.documentElement.style.setProperty("--baseBlueStrong","#4f8dff");drawScene()}if(e.key.toLowerCase()==="t"){playKick()}});
+    document.addEventListener("keydown",(e)=>{if(["0","1"].includes(e.key)){seq.push(e.key);if(seq.join("")==="001"){toggleCreator();seq=[]}if(seq.length>3)seq.shift()}else{seq=[]}if(e.key.toLowerCase()==="t"){playKick()}});
 
     let audioCtx;
     function playKick(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator();const g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.type="sine";o.frequency.setValueAtTime(150,audioCtx.currentTime);g.gain.setValueAtTime(.8,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(40,audioCtx.currentTime+.18);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+.18);o.start();o.stop(audioCtx.currentTime+.2)}
