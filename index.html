@@ -57,12 +57,35 @@
     .meme:before{content:"";position:absolute;inset:-30% -10% auto auto;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(255,255,255,.9),rgba(135,179,255,.25));filter:blur(4px)}
     .meme .tag{font-weight:800;color:#18315f;font-size:.8rem;background:#e7f1ff;border:1px solid #d4e6ff;padding:6px 10px;border-radius:999px;display:inline-block;margin-bottom:8px}
     .meme p{margin:0;color:#2a3d6b;font-weight:700}
+    .lab{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;align-items:center}
+    .canvas-wrap{background:repeating-linear-gradient(45deg,#fff,#fff 8px,#f7fbff 8px,#f7fbff 16px);border:1px solid #e6eeff;border-radius:18px;padding:10px;box-shadow:0 16px 36px rgba(8,20,48,.12)}
+    canvas{width:100%;height:auto;display:block;border-radius:12px}
+    .lab-controls .tip{color:#51628a;font-size:.95rem;margin-top:10px}
+    .keys{font-family:"Space Mono",monospace;background:#0b1220;color:#e7f1ff;padding:10px 12px;border-radius:10px;display:inline-block;margin-top:8px;border:1px solid #1a2540}
+    .hidden-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:24px}
+    .hidden-img-wrap{position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;border:1px solid #e6eeff;box-shadow:0 12px 28px rgba(8,20,48,.12);cursor:pointer}
+    .hidden-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+    .pixel-wall{position:absolute;inset:0;background:#0b1220;transition:opacity .8s ease,transform .8s ease;background-image:repeating-linear-gradient(0deg,transparent,transparent 8px,rgba(135,179,255,.1) 8px,rgba(135,179,255,.1) 10px),repeating-linear-gradient(90deg,transparent,transparent 8px,rgba(135,179,255,.1) 8px,rgba(135,179,255,.1) 10px)}
+    .hidden-img-wrap:hover .pixel-wall{opacity:0;transform:scale(1.2)}
     footer{text-align:center;color:#4a5f8f;padding:34px 16px 60px}
     footer .sig{font-weight:800;color:#18315f}
-    @media (max-width:980px){.hero{grid-template-columns:1fr}}
+    body.creator-mode{background:radial-gradient(1200px 1200px at 30% 10%,#ffd9fb 0%,transparent 45%),radial-gradient(1000px 800px at 110% 40%,#fff2b2 0%,transparent 45%),linear-gradient(180deg,#fdf4ff,#fff8d2 40%,#ffe6ff)}
+    body.creator-mode .btn{--btnbg:linear-gradient(90deg,#fcb6ff,#ffe676 70%,#ffd3ff)}
+    body.creator-mode .hero-card{background:linear-gradient(180deg,#fff7ff,#fff7e8)}
+    body.creator-mode .panel{background:linear-gradient(180deg,#fff7ff,#fff7e8)}
+    .secret{display:none;text-align:center;font-weight:900;letter-spacing:.6px;margin-top:10px;color:#0b1220}
+    body.creator-mode .secret{display:block}
+    @media (max-width:980px){.hero{grid-template-columns:1fr}.lab{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
+  <div class="shape cloud" style="top:6%;left:-40px;transform:scale(.9);animation-duration:26s"></div>
+  <div class="shape cloud" style="top:16%;right:-60px;transform:scale(1.1);animation-duration:22s"></div>
+  <div class="shape star" style="top:34%;left:8%;width:90px;height:90px;background:var(--yellow);animation-duration:18s"></div>
+  <div class="shape tri" style="top:62%;left:3%;width:120px;height:100px;background:var(--mint);animation-duration:16s"></div>
+  <div class="shape bubble" style="top:74%;right:6%;width:120px;height:120px;animation-duration:20s"></div>
+  <div class="shape bubble" style="top:42%;right:18%;width:80px;height:80px;background:var(--pink);animation-duration:17s"></div>
+
   <div class="wrap">
     <header>
       <div class="brand">
@@ -75,7 +98,7 @@
       <div class="cta">
         <a class="btn" href="https://dexscreener.com/base" target="_blank" rel="noopener">Enter Base Mode</a>
         <a class="btn secondary" href="https://x.com" target="_blank" rel="noopener">X</a>
-        <a class="btn secondary" href="https://t.me/jessecreator" target="_blank" rel="noopener">Telegram</a>
+        <button id="toggleCreator" class="btn secondary" title="Press 0 0 1 to toggle">Creator Mode</button>
       </div>
     </header>
 
@@ -87,6 +110,7 @@
         <div class="chips">
           <span class="chip">Network: Basechain</span>
           <span class="chip">Ticker: 001</span>
+          <span class="chip">Supply: 100,000,001</span>
           <span class="chip">Vibe: Flower Boy Energy</span>
         </div>
         <div class="secret">You can't fork culture.</div>
@@ -108,8 +132,60 @@
 
     <section>
       <div class="panel">
+        <h3>The Drop</h3>
+        <div class="tracks">
+          <div class="track">
+            <div class="num">001</div>
+            <h4>The Blueprint</h4>
+            <p>Total supply 100,000,001. No nonsense. No maze.</p>
+          </div>
+          <div class="track">
+            <div class="num">002</div>
+            <h4>Base Mode</h4>
+            <p>Basechain native. Because the builder is 001.</p>
+          </div>
+          <div class="track">
+            <div class="num">003</div>
+            <h4>Flower Power</h4>
+            <p>Liquidity blooms. Community waters. Vibes grow.</p>
+          </div>
+          <div class="track">
+            <div class="num">004</div>
+            <h4>Creator Energy</h4>
+            <p>Less roadmap. More taste. Product is the culture.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="panel">
         <h3>Meme Wall</h3>
         <div id="memeWall" class="meme-wall" role="list"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="panel">
+        <h3>The Creator Lab</h3>
+        <div class="hidden-gallery">
+          <div class="hidden-img-wrap">
+            <img src="1.png" alt="Jesse Art 1">
+            <div class="pixel-wall"></div>
+          </div>
+          <div class="hidden-img-wrap">
+            <img src="2.png" alt="Jesse Art 2">
+            <div class="pixel-wall"></div>
+          </div>
+          <div class="hidden-img-wrap">
+            <img src="3.png" alt="Jesse Art 3">
+            <div class="pixel-wall"></div>
+          </div>
+          <div class="hidden-img-wrap">
+            <img src="4.png" alt="Jesse Art 4">
+            <div class="pixel-wall"></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -125,12 +201,19 @@
     function typeNext(){if(idx>=lines.length){idx=0;term.innerText="";}const line=document.createElement("div");line.textContent=lines[idx++];term.appendChild(line)}
     typeNext();setInterval(typeNext,1400);
 
-    const memes=["Some build apps. Some build art.","Builder 001 with Flower Boy energy.","You can not fork culture.","Deploying good taste on Base.","Art plus code equals culture.","This is not DeFi. This is Design.","Push commits, keep the drip.","Base is a canvas.","Holders are co creators.","It is not a launch. It is a vibe drop.","Infrastructure needs imagination.","When devs discover aesthetics.","Somewhere between art and code.","Jesse vibes only."];
+    const memes=["Some build apps. Some build art.","Builder 001 with Flower Boy energy.","You can not fork culture.","Deploying good taste on Base.","Art plus code equals culture.","This is not DeFi. This is Design.","Push commits, keep the drip.","Base is a canvas.","Holders are co creators.","It is not a launch. It is a vibe drop.","Infrastructure needs imagination.","When devs discover aesthetics."];
     const tags=["gm","based","builder","creator","001","vibes","flower","cloud","star","blue"];
     const wall=document.getElementById("memeWall");
     function addMeme(){const card=document.createElement("div");card.className="meme";const tag=document.createElement("div");tag.className="tag";tag.textContent="#"+tags[Math.floor(Math.random()*tags.length)];const p=document.createElement("p");p.textContent=memes[Math.floor(Math.random()*memes.length)];card.appendChild(tag);card.appendChild(p);wall.prepend(card);const max=12;while(wall.children.length>max){wall.removeChild(wall.lastChild)}}
     for(let i=0;i<9;i++)addMeme();setInterval(addMeme,1800);
+
+    let seq=[];
+    function toggleCreator(){document.body.classList.toggle("creator-mode")}
+    document.getElementById("toggleCreator").addEventListener("click",toggleCreator);
+    document.addEventListener("keydown",(e)=>{if(["0","1"].includes(e.key)){seq.push(e.key);if(seq.join("")==="001"){toggleCreator();seq=[]}if(seq.length>3)seq.shift()}else{seq=[]}if(e.key.toLowerCase()==="t"){playKick()}});
+
+    let audioCtx;
+    function playKick(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator();const g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.type="sine";o.frequency.setValueAtTime(150,audioCtx.currentTime);g.gain.setValueAtTime(.8,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(40,audioCtx.currentTime+.18);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+.18);o.start();o.stop(audioCtx.currentTime+.2)}
   </script>
 </body>
 </html>
-
